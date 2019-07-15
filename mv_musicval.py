@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 from scipy.signal import spectrogram
 from scipy.io import wavfile
-from librosa.feature import chroma_stft
+from librosa.feature import melspectrogram
 from librosa.core import load
 
 # some .csv file with path, valence, etc. information as columns
@@ -31,10 +31,10 @@ for i, row in val.iterrows():
     # read in sampling rate and the samples of the audio from the filename
     aud, fs = load(mp3_path)
     
-    # get a chromagram from the audio
-    coefs = chroma_stft(aud, sr=fs, n_fft=2**15, hop_length=2**14)
+    # get a spectrogram from the audio
+    coefs = melspectrogram(aud, sr=fs, n_fft=2**15, hop_length=2**14)
 
-    # store a flattened version of the chromagram -- flatten so that we make a n_songs x n_features array later
+    # store a flattened version of the spectrogram -- flatten so that we make a n_songs x n_features array later
     spectrograms.append(coefs.flatten())
 
     #append valences to variable
