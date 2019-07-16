@@ -1,0 +1,11 @@
+t2t-trainer \
+ --generate_data \
+ --problem=music_valence \
+ --data_dir=/Users/jonny/Desktop/valence_data \
+ --t2t_usr_dir=/Users/jonny/git/music_valence \
+ --tmp_dir=/Users/jonny/git/music_valence \
+ --train_dir=/Users/jonny/Desktop/valence_train \
+ --output_dir=/Users/jonny/Desktop/valence_output  \
+ --checkpoint_dir=/Users/jonny/Desktop/valence_checkpoint  \
+ --model=transformer \
+ --hparams_set=transformer_small
