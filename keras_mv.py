@@ -12,6 +12,10 @@ from keras_generator import load_emotify, DataGenerator
 
 import numpy as np
 
+import subprocess
+# some weird bug in OSX
+os.system('export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES')
+
 data_dir = '/Users/jonny/Desktop/valence_data'
 data_file = os.path.join(data_dir, 'data.csv')
 data = load_emotify(data_file)
@@ -29,8 +33,8 @@ train_set = data.loc[np.isin(data.path, train_songs),:]
 ################
 
 # make generators
-train_generator = DataGenerator(train_set)
-test_generator = DataGenerator(test_set)
+train_generator = DataGenerator(train_set, batch_size=4, counter_pos=1)
+test_generator = DataGenerator(test_set, batch_size=4, counter_pos=2)
 
 
 model = Sequential()
@@ -41,13 +45,13 @@ model.add(Dense(32))
 model.add(Dense(9, activation='sigmoid'))
 
 model.compile(optimizer="adagrad",
-              loss='binary_crossentropy',
+              loss='categorical_crossentropy',
               metrics=['accuracy'])
 
 model.fit_generator(generator=train_generator,
                     validation_data=test_generator,
-                    use_multiprocessing=False)
-                    #workers=6)
+                    use_multiprocessing=True,
+                    workers=6)
 
 
 
