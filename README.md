@@ -1,26 +1,4 @@
 # music-valence
 
-Markdown is shorthand ''styling'' conventions that convert
-* simple
-* syntax
-
-into 
-
-# preformatted
-
-## text
-
-# installation
-
-* list 
-* of
-* prereqs
-
-```
-pip install package1 package2
-```
-
-# background
-
-![a link to some page](https://google.com)
+My interest in learning Python led me to develop a machine learning project where I created a neural net to detect valences of unknown .mp3s using the Keras ML Library. This is the first step in creating a homemade music taste generator.
 
