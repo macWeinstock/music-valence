@@ -1,3 +1,8 @@
+#This file downloads training data from emotify and formats in a consumable way for Keras ML Library.
+
+#Usage: python3 keras_generator.py
+#Author: Mac Weinstock
+
 import keras
 import numpy as np
 import pandas as pd
@@ -46,7 +51,7 @@ class DataGenerator(keras.utils.Sequence):
     'Generates data for Keras'
     def __init__(self, song_df, batch_size=32, dim=(64,100), n_channels=1,
                  n_classes=9, shuffle=True, counter_pos=1):
-        'Initialization'
+        #'Initialization'
         self.dim = dim
         self.batch_size = batch_size
         self.song_df = song_df.reset_index(drop=True).copy()
@@ -64,17 +69,15 @@ class DataGenerator(keras.utils.Sequence):
         self.on_epoch_end()
 
     def __len__(self):
-        'Denotes the number of batches per epoch'
-        # FIXME: SLOPPY HACK - HARDCODING NUMBER OF SUBSAMPLES PER TRACK
+        #'Denotes the number of batches per epoch'
         n_subsamples = 28
         return int(np.floor(self.song_df.shape[0]/self.batch_size))
-        #return int(np.floor((self.song_df.shape[0]*n_subsamples) / self.batch_size))
 
     def __getitem__(self, index):
         'Generate one batch of data'
         # Generate indexes of the batch
-        #if index > (self.song_df.shape[0]-self.batch_size):
-        #    index = index % self.song_df.shape[0]
+        # if index > (self.song_df.shape[0]-self.batch_size):
+        #   index = index % self.song_df.shape[0]
 
         indexes = self.indexes[index*self.batch_size:(index+1)*self.batch_size]
 
@@ -87,13 +90,13 @@ class DataGenerator(keras.utils.Sequence):
         return X, y
 
     def on_epoch_end(self):
-        'Updates indexes after each epoch'
+        #'Updates indexes after each epoch'
         self.indexes = np.arange(self.song_df.shape[0])
         if self.shuffle == True:
             np.random.shuffle(self.indexes)
 
     def __data_generation(self, list_IDs_temp):
-        'Generates data containing batch_size samples' # X : (n_samples, *dim, n_channels)
+        #'Generates data containing batch_size samples' # X : (n_samples, *dim, n_channels)
         # Initialization
         X = np.empty((self.batch_size, *self.dim, self.n_channels))
         Y = np.empty((self.batch_size, self.n_classes), dtype=np.bool)

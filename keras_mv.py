@@ -1,3 +1,10 @@
+#This file is to split data into testing and training sets, create generators and the training
+#model using Keras ML library. Last step fits the model and adds a checkpoint with weight values.
+
+#Usage: python3 keras_mv.py
+#Author: Mac Weinstock
+
+
 import keras
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Conv2D, Flatten
@@ -14,6 +21,7 @@ from librosa.core import load
 import numpy as np
 
 import subprocess
+
 #Bug fix from OSX
 os.system('export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES')
 
@@ -51,7 +59,6 @@ model.compile(optimizer="adagrad",
 
 
 #Checkpoint
-
 check_dir = '/Users/Mac/Desktop/MusicValence/mvcheckpoint/mv_weights.{epoch:02d}-{val_loss:.2f}.hdf5'
 checkpoint = ModelCheckpoint(check_dir, monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=True, mode='auto')
 callbacks_list = [checkpoint]

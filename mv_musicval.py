@@ -1,8 +1,7 @@
-'''
-Convert a dataset with with paths to .mp3 files and associated valences into list
-of tuples with spectrograms and associated valences (songData(spectrograms, valences))
-'''
-#Usage: python3 mv_musicval/py
+#Convert a dataset with with paths to .mp3 files and associated valences into list
+#of tuples with spectrograms and associated valences (songData(spectrograms, valences))
+
+#Usage: python3 mv_musicval.py
 #Author: Mac Weinstock
 
 #imports
@@ -21,7 +20,7 @@ val = pd.read_csv(valence_file)
 
 #create list of spectrograms and dictionary of valences
 spectrograms = []
-valences = []       #SHOULD I USE A DICTIONARY?
+valences = []    
 
 #iterate through rows of the valence file, storing a spectrogram and valence for each
 for i, row in val.iterrows():
@@ -51,13 +50,4 @@ songData.append(spectrograms)
 songData.append(valences)
 
 print(songData)
-
-
-#NOTES
-#fs, aud = wavfile.read(row.path)
-#freqs, times, spect = spectrogram(aud[:,0], fs=fs, nperseg=2048, noverlap=1024, nfft=2048)
-# cast the samples as floats, subset to one channel of audio
-#aud = aud[:,0].astype(np.float)
-#val['PATH']
-#val['PATH'].values
 
